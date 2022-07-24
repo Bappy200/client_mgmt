@@ -8,23 +8,6 @@ import Spaner from '../Spaner/Spaner';
 function Client() {
   const {loading, data, error} = useQuery(GET_CLIENTS);
 
-  // const columns = [
-  //   { field: 'id', headerName: 'ID', width: 70 },
-  //   { field: 'name', headerName: 'First name', width: 130 },
-  //   {
-  //     field: 'phone',
-  //     headerName: 'Phone',
-  //     width: 140,
-  //   },
-  //   {
-  //     field: 'email',
-  //     headerName: 'Email Address',
-  //     width: 150,
-  //   },
-
-  // ];
-
-  console.log(error);
   if(loading){
     return <Spaner/>
   }
@@ -36,7 +19,7 @@ function Client() {
     return (
       <>
         {!loading && !error && (
-        <table className='table table-hover mt-3'>
+        <table className='table table-hover mt-3 mt-3'>
           <thead>
             <tr>
               <th>Name</th>
