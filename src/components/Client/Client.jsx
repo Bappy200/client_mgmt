@@ -1,5 +1,4 @@
 import React from 'react'
-import './client.css'
 import {useQuery} from '@apollo/client'
 import { GET_CLIENTS } from '../../query/clientQuery'
 import ClientRow from '../ClientRow/ClientRow';
@@ -18,6 +17,7 @@ function Client() {
     console.log(data.clients);
     return (
       <>
+        <h2 className='mt-4 mb-2 text-uppercase' >All Clients</h2>
         {!loading && !error && (
         <table className='table table-hover mt-3 mt-3'>
           <thead>
@@ -25,12 +25,12 @@ function Client() {
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
-              <th></th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {data.clients.map((client) => (
-              <ClientRow key={client.id} {...client} />
+              <ClientRow key={client.id} client={client} />
             ))}
           </tbody>
         </table>

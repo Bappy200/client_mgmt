@@ -12,9 +12,10 @@ function Project() {
     else{
         return (
             <>
+            <h2 className='mt-4 text-uppercase'>All Project</h2>
             {
                 data.projects.length>0? (
-                    <div className='row'>
+                    <div className='row mt-2'>
                         {
                             data.projects.map(project => <ProjectCard key={project.id} {...project}/>)
                         }

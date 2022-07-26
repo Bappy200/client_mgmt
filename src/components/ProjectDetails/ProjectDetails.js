@@ -4,7 +4,7 @@ import {useQuery, useMutation} from "@apollo/client"
 import { GET_PROJECT, DELETE_PROJECT, GET_PROJECTS } from '../../query/projectQuery';
 import Spaner from '../Spaner/Spaner';
 import { confirmAlert } from 'react-confirm-alert';
-import {FaTrash, FaEdit} from 'react-icons/fa'
+import {FaTrash} from 'react-icons/fa'
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import UpdateProject from '../UpdateProject/UpdateProject';
 
@@ -15,6 +15,7 @@ function ProjectDetails() {
   const {loading, error, data} = useQuery(GET_PROJECT, {
     variables: {id: id}
   });
+  
   const [deleteProject] = useMutation(DELETE_PROJECT,{
         variables: { id: id },
         update(cache, { data: { deleteProject } }) {
@@ -22,16 +23,11 @@ function ProjectDetails() {
         cache.writeQuery({
             query: GET_PROJECTS,
             data: {
-            projects: projects.filter((client) => client.id !== deleteProject.id),
+            projects: projects.filter((project) => project.id !== deleteProject.id),
             },
         });
     },
     });
-
-    //edit project handler
-    const editeProject = ()=>{
-        console.log('editeproject');
-    }
 
     //delete project heandler
     const deleteAlert = (name)=>{
@@ -66,7 +62,7 @@ function ProjectDetails() {
         <>
           {
             !loading && !error && <div className='d-flex justify-content-center align-item-center'>
-              <div className='w-50 bg-light p-4 rounded'>
+              <div className=' bg-light p-5 rounded'>
                   <h3 className='text-uppercase'>{data.project.name}</h3>
                   <h6 className='text-uppercase'>Status : {data.project.status? data.project.status : "comming"}</h6>
                   <p>{data.project.description}</p>

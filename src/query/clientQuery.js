@@ -11,6 +11,18 @@ const GET_CLIENTS = gql`
     }
 `
 
+const GET_CLIENT = gql`
+    query getClient($id: ID!){
+        client(id: $id){
+            id
+            name
+            email
+            phone
+        }
+    }
+`
+
+
 const DELETE_CLIENT = gql`
   mutation deleteClient($id: ID!) {
     deleteClient(id: $id) {
@@ -33,4 +45,16 @@ const ADD_CLIENT = gql`
   }
 `;
 
-export {GET_CLIENTS, DELETE_CLIENT, ADD_CLIENT};
+const UPDATE_CLIENT = gql`
+  mutation updateClient($id: ID!, $name: String!, $email: String!, $phone: String!) {
+    updateClient(id: $id, name: $name, email: $email, phone: $phone) {
+      id
+      name
+      email
+      phone  
+    }
+  }
+`;
+
+
+export {GET_CLIENTS, DELETE_CLIENT, ADD_CLIENT, UPDATE_CLIENT, GET_CLIENT};

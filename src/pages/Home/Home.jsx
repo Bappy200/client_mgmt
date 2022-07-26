@@ -7,8 +7,14 @@ import AddProject from '../../components/AddProject/AddProject'
 function Home() {
   return (
     <>
-        <AddClientModal/>
-        <AddProject/>
+        <div className='d-flex'>
+            <div className='me-3'>
+               <AddClientModal/>
+            </div>
+            <div>
+              <AddProject/>
+            </div>
+        </div>
         <Project/> 
         <Client/>
     </>

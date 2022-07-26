@@ -7,6 +7,7 @@ import { GET_PROJECT, UPDATE_PROJECT } from '../../query/projectQuery';
 export default function UpdateProject({project}) {
   const [name, setName] = useState(project.name);
   const [description, setDescription] = useState(project.description);
+  const id = project.id;
   const [status, setStatus] = useState(() => {
     switch (project.status) {
       case "Not Started":
@@ -21,8 +22,8 @@ export default function UpdateProject({project}) {
   });
 
   const [updateProject] = useMutation(UPDATE_PROJECT, {
-    variables: { name, description, status },
-    refetchQueries: [{ query: GET_PROJECT, variables: { id: project.id } }],
+    variables: { id ,name, description, status },
+    refetchQueries: [{ query: GET_PROJECT, variables: { id: id } }],
   });
 
   const onSubmit = (e) => {
@@ -32,7 +33,7 @@ export default function UpdateProject({project}) {
       return alert('Please fill in all fields');
     }
 
-    updateProject(name, description, status);
+    updateProject( id, name, description, status);
   };
 
   return (

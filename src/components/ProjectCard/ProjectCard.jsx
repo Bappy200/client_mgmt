@@ -7,18 +7,18 @@ function ProjectCard({name, status, id}) {
 
    
   return (
-    <div className='sm-col-12 col-4'>
+    <div className='col-xl-4 col-md-6 col-sm-12'>
         <div class="card text-black bg-light mb-3" style={{border:"none", boxShadow:"1px 1px 3px #ddd"}}>
-            <div class="card-header">Status: {status ? status : 'comming...'}</div>
-            <div class="card-body d-flex justify-content-between">
-                <div>
-                  <h3 class="card-title">{name}</h3>
+            <div class="card-body ">
+                <h3 class="card-title text-capitalize">{name}</h3>
+                <p>Status <span className='text-uppercase'>{status}</span></p>
+                <div className="d-flex justify-content-end align-item-end">
+                  <Link to={`/project/${id}`}>
+                    <button className='btn btn-info'>
+                      viwe
+                    </button>
+                  </Link>
                 </div>
-                <Link to={`/project/${id}`}>
-                  <button className='btn btn-light'>
-                    viwe
-                  </button>
-                </Link>
             </div>
          </div>
     </div>

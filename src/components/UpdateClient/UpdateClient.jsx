@@ -1,68 +1,56 @@
 import { useState } from 'react';
-import { FaUser } from 'react-icons/fa';
 import { useMutation } from '@apollo/client';
-import { ADD_CLIENT, GET_CLIENTS } from '../../query/clientQuery';
+import {  GET_CLIENT,  UPDATE_CLIENT } from '../../query/clientQuery';
+import { FaEdit } from 'react-icons/fa';
 
-export default function AddClientModal() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+export default function UpdateClient({client}) {
+  const [name, setName] = useState(client.name);
+  const [email, setEmail] = useState(client.email);
+  const [phone, setPhone] = useState(client.phone);
+  const id =  client.id;
 
-
-
-
-  const [addClient] = useMutation(ADD_CLIENT, {
-    variables: { name, email, phone },
-    update(cache, { data: { addClient } }) {
-      const { clients } = cache.readQuery({ query: GET_CLIENTS });
-
-      cache.writeQuery({
-        query: GET_CLIENTS,
-        data: { clients: [...clients, addClient] },
-      });
-    },
-  });
+  const [updateClient] = useMutation(UPDATE_CLIENT,{
+    variables:{id, name, email, phone},
+    refetchQueries: [{ query: GET_CLIENT, variables: { id: id } }]
+  })
 
 
   const onSubmit = (e) => {
     e.preventDefault();  
-    
 
     if (name === '' || email === '' || phone === '') {
       return alert('Please fill in all fields');
     }
-    addClient(name, email, phone);
-
-    setName('');
-    setEmail('');
-    setPhone('');
+      updateClient(id, name, email, phone);
+      setName('');
+      setEmail('');
+      setPhone('');
   };
 
   return (
     <>
       <button
         type='button'
-        className='btn btn-primary'
+        className='btn btn-secondary'
         data-bs-toggle='modal'
-        data-bs-target='#addClientModal'
+        data-bs-target='#updateClientModal'
       >
         <div className='d-flex align-items-center'>
-          {<FaUser className='icon' />}
-          <div>Add Client</div>
+          <FaEdit/>
         </div>
       </button>
 
       <div
         className='modal fade'
-        id='addClientModal'
-        aria-labelledby='addClientModalLabel'
+        id='updateClientModal'
+        aria-labelledby='updateClientModalLabel'
         aria-hidden='true'
       >
         <div className='modal-dialog'>
           <div className='modal-content'>
             <div className='modal-header'>
-              <h5 className='modal-title' id='addClientModalLabel'>
-                Add Client
+              <h5 className='modal-title' id='updateClientModalLabel'>
+                Update Client
               </h5>
               <button
                 type='button'
